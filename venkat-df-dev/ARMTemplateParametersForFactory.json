@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "venkat-df-dev"
+		},
+		"lnk_adls_accountKey": {
+			"value": ""
+		},
+		"lnk_azuresql_password": {
+			"value": ""
+		},
+		"lnk_onprem_sql_password": {
+			"value": ""
+		},
+		"lnk_adls_properties_typeProperties_url": {
+			"value": "https://venkatdatalakedev.dfs.core.windows.net/"
+		},
+		"lnk_azuresql_properties_typeProperties_server": {
+			"value": "venkatadmin.database.windows.net"
+		},
+		"lnk_azuresql_properties_typeProperties_database": {
+			"value": "venkatdb"
+		},
+		"lnk_azuresql_properties_typeProperties_userName": {
+			"value": "venkatadmin"
+		},
+		"lnk_onprem_sql_properties_typeProperties_server": {
+			"value": "DESKTOP-DOVR8TG"
+		},
+		"lnk_onprem_sql_properties_typeProperties_database": {
+			"value": "AdventureWorks2019"
+		},
+		"lnk_onprem_sql_properties_typeProperties_userName": {
+			"value": "venkat"
+		}
+	}
+}

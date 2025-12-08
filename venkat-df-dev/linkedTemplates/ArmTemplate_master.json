@@ -1,0 +1,172 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "venkat-df-dev"
+		},
+		"lnk_adls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'lnk_adls'"
+		},
+		"lnk_azuresql_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'lnk_azuresql'"
+		},
+		"lnk_onprem_sql_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'lnk_onprem_sql'"
+		},
+		"lnk_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://venkatdatalakedev.dfs.core.windows.net/"
+		},
+		"lnk_azuresql_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "venkatadmin.database.windows.net"
+		},
+		"lnk_azuresql_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "venkatdb"
+		},
+		"lnk_azuresql_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "venkatadmin"
+		},
+		"lnk_onprem_sql_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-DOVR8TG"
+		},
+		"lnk_onprem_sql_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorks2019"
+		},
+		"lnk_onprem_sql_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "venkat"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "venkat-df-dev_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"lnk_adls_accountKey": {
+						"value": "[parameters('lnk_adls_accountKey')]"
+					},
+					"lnk_azuresql_password": {
+						"value": "[parameters('lnk_azuresql_password')]"
+					},
+					"lnk_adls_properties_typeProperties_url": {
+						"value": "[parameters('lnk_adls_properties_typeProperties_url')]"
+					},
+					"lnk_azuresql_properties_typeProperties_server": {
+						"value": "[parameters('lnk_azuresql_properties_typeProperties_server')]"
+					},
+					"lnk_azuresql_properties_typeProperties_database": {
+						"value": "[parameters('lnk_azuresql_properties_typeProperties_database')]"
+					},
+					"lnk_azuresql_properties_typeProperties_userName": {
+						"value": "[parameters('lnk_azuresql_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "venkat-df-dev_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'venkat-df-dev_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "venkat-df-dev_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"lnk_onprem_sql_password": {
+						"value": "[parameters('lnk_onprem_sql_password')]"
+					},
+					"lnk_onprem_sql_properties_typeProperties_server": {
+						"value": "[parameters('lnk_onprem_sql_properties_typeProperties_server')]"
+					},
+					"lnk_onprem_sql_properties_typeProperties_database": {
+						"value": "[parameters('lnk_onprem_sql_properties_typeProperties_database')]"
+					},
+					"lnk_onprem_sql_properties_typeProperties_userName": {
+						"value": "[parameters('lnk_onprem_sql_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'venkat-df-dev_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "venkat-df-dev_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'venkat-df-dev_ArmTemplate_2')]"
+			]
+		}
+	]
+}

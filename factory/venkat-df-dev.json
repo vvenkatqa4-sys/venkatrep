@@ -1,0 +1,9 @@
+{
+	"name": "venkat-df-dev",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "387d59ca-5649-4e68-8d20-50425f46dbf8",
+		"tenantId": "e5e76c11-7bd2-4b5f-b9e4-733bfc1eb6e3"
+	}
+}

@@ -1,0 +1,48 @@
+{
+	"name": "src_ds_sql_cont",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_azuresql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "CreditCardID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CardType",
+				"type": "varchar"
+			},
+			{
+				"name": "CardNumber",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ExpMonth",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ExpYear",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": "CreditCard"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

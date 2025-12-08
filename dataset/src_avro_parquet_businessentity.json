@@ -1,0 +1,46 @@
+{
+	"name": "src_avro_parquet_businessentity",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Person.BusinessEntity.avro",
+				"fileSystem": "venkat-container-dev"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "HybridDelivery.ClientLibraryJob",
+			"fields": [
+				{
+					"name": "BusinessEntityID",
+					"type": [
+						"int",
+						"null"
+					]
+				},
+				{
+					"name": "rowguid",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ModifiedDate",
+					"type": [
+						"string",
+						"null"
+					]
+				}
+			]
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

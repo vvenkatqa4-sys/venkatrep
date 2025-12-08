@@ -1,0 +1,80 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Json2",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flatten1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          city as string,",
+				"          customer_id as short,",
+				"          email as string,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          state as string,",
+				"          transactions as (txn_amount as double, txn_date as date, txn_id as string, txn_type as string)[]",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'arrayOfDocuments',",
+				"     partitionBy('hash', 1)) ~> source1",
+				"source1 foldDown(unroll(transactions),",
+				"     mapColumn(",
+				"          city,",
+				"          customer_id,",
+				"          email,",
+				"          first_name,",
+				"          last_name,",
+				"          state,",
+				"          transactions = transactions.txn_amount,",
+				"          txn_date = transactions.txn_date,",
+				"          txn_id = transactions.txn_id,",
+				"          txn_type = transactions.txn_type",
+				"     ),",
+				"     partitionBy('hash', 1),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          city,",
+				"          customer_id,",
+				"          email,",
+				"          first_name,",
+				"          last_name,",
+				"          state,",
+				"          txn_type",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

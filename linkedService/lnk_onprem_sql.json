@@ -1,0 +1,21 @@
+{
+	"name": "lnk_onprem_sql",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "DESKTOP-DOVR8TG",
+			"database": "AdventureWorks2019",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "venkat",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxOGY5ZDZlOS05Yjc5LTQ5ZDYtYTkxMy1hM2E2OGViNjIwYzkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ir-selfhosted",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

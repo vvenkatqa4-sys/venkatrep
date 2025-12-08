@@ -1,0 +1,10 @@
+{
+	"name": "ir-selfhosted",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "on premise sql server",
+		"typeProperties": {
+			"selfContainedInteractiveAuthoringEnabled": true
+		}
+	}
+}

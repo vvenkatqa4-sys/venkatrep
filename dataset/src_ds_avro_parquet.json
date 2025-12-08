@@ -1,0 +1,116 @@
+{
+	"name": "src_ds_avro_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Person.Person.avro",
+				"fileSystem": "venkat-container-dev"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "HybridDelivery.ClientLibraryJob",
+			"fields": [
+				{
+					"name": "BusinessEntityID",
+					"type": [
+						"long",
+						"null"
+					]
+				},
+				{
+					"name": "PersonType",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "NameStyle",
+					"type": [
+						"boolean",
+						"null"
+					]
+				},
+				{
+					"name": "Title",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "FirstName",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "MiddleName",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "LastName",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "Suffix",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "EmailPromotion",
+					"type": [
+						"long",
+						"null"
+					]
+				},
+				{
+					"name": "AdditionalContactInfo",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "Demographics",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "rowguid",
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				{
+					"name": "ModifiedDate",
+					"type": [
+						"string",
+						"null"
+					]
+				}
+			]
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

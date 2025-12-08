@@ -1,0 +1,17 @@
+{
+	"name": "snk_ds_cont_sql_personbusinessentity",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_azuresql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Person",
+			"table": "BusinessEntity"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

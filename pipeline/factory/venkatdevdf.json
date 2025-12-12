@@ -1,0 +1,9 @@
+{
+	"name": "venkatdevdf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a9918511-8525-40eb-b687-a03b667d2ab7",
+		"tenantId": "638fd545-83d5-478f-815f-61a70f9ca703"
+	}
+}

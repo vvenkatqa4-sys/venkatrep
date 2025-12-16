@@ -1,10 +1,6 @@
 {
 	"name": "snk_ds_csv_json",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_adls",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {

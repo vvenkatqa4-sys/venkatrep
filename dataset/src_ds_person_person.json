@@ -1,10 +1,6 @@
 {
 	"name": "src_ds_person_person",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_adls",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

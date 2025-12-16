@@ -1,10 +1,6 @@
 {
 	"name": "snk_ds_sql_Json_employee",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_azuresql",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [

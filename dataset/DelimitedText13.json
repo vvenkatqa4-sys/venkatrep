@@ -1,10 +1,6 @@
 {
 	"name": "DelimitedText13",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_adls",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"table_name": {
 				"type": "string"

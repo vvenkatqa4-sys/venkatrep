@@ -1,10 +1,6 @@
 {
 	"name": "src_purchase",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_adls",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"x": {
 				"type": "string"

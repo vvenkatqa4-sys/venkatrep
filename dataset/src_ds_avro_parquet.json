@@ -1,10 +1,6 @@
 {
 	"name": "src_ds_avro_parquet",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_adls",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "Avro",
 		"typeProperties": {

@@ -1,10 +1,6 @@
 {
 	"name": "SqlServerTable2",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_onprem_sql",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"table_name": {
 				"type": "string"

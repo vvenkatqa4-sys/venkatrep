@@ -1,10 +1,6 @@
 {
 	"name": "AzureSqlTable5",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "lnk_azuresql",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"table_name": {
 				"type": "string"

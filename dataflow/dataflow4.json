@@ -1,0 +1,146 @@
+{
+	"name": "dataflow4",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText25",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable12",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable13",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable14",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "exists1"
+				},
+				{
+					"name": "exists2"
+				},
+				{
+					"name": "AlterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as integer,",
+				"          empname as string,",
+				"          empdept as string,",
+				"          empqual as string,",
+				"          empsal as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          EmpID as integer,",
+				"          EmpName as string,",
+				"          Department as string,",
+				"          emp_qualification as string,",
+				"          Salary as integer,",
+				"          status as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source2",
+				"source1 derive(hashkey_1 = md5(empname,empdept,empqual,empsal),",
+				"          status1 = 1) ~> derivedColumn1",
+				"source2 derive(hashkey2 = md5(EmpName,Department,emp_qualification,Salary),",
+				"          status0 = 0) ~> derivedColumn2",
+				"derivedColumn1, derivedColumn2 exists(source1@empid == source2@EmpID",
+				"     && hashkey_1 == hashkey2,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"derivedColumn2, derivedColumn1 exists(source2@EmpID==source1@empid&&hashkey2!=hashkey_1,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> exists2",
+				"exists2 alterRow(updateIf(1==1)) ~> AlterRow1",
+				"exists1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          EmpID as integer,",
+				"          EmpName as string,",
+				"          Department as string,",
+				"          emp_qualification as string,",
+				"          Salary as integer,",
+				"          status as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          EmpID = empid,",
+				"          EmpName = empname,",
+				"          Department = empdept,",
+				"          emp_qualification = empqual,",
+				"          Salary = empsal,",
+				"          status = status1",
+				"     )) ~> sink1",
+				"AlterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          EmpID as integer,",
+				"          EmpName as string,",
+				"          Department as string,",
+				"          emp_qualification as string,",
+				"          Salary as integer,",
+				"          status as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['EmpID'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          EmpID,",
+				"          EmpName,",
+				"          Department,",
+				"          emp_qualification,",
+				"          Salary,",
+				"          status = status0",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}

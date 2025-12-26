@@ -1,0 +1,40 @@
+{
+	"name": "AzureSqlTable17",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "link_AzureSql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "voter_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "voter_name",
+				"type": "varchar"
+			},
+			{
+				"name": "voter_add",
+				"type": "varchar"
+			},
+			{
+				"name": "voter_ph",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "date_t",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "orderfinal"
+		}
+	}
+}

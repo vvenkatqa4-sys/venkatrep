@@ -1,0 +1,40 @@
+{
+	"name": "AzureSqlTable18",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "link_AzureSql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EmpID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmpName",
+				"type": "varchar"
+			},
+			{
+				"name": "Department",
+				"type": "varchar"
+			},
+			{
+				"name": "Salary",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "LastUpdatedDate",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "employee1"
+		}
+	}
+}

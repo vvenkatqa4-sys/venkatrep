@@ -1,0 +1,9 @@
+{
+	"name": "venkatdata132",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0d5778ae-3294-4f4f-b357-a5c0ab53b51b",
+		"tenantId": "74be3a9a-7456-41fc-8ce9-661ff821bd1f"
+	}
+}

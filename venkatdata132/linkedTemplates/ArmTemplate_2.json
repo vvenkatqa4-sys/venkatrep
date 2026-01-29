@@ -1,0 +1,1142 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "venkatdata132"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_avro_businessentity')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Avro",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {
+					"type": "record",
+					"name": "HybridDelivery.ClientLibraryJob",
+					"fields": [
+						{
+							"name": "BusinessEntityID",
+							"type": [
+								"long",
+								"null"
+							]
+						},
+						{
+							"name": "PersonType",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "NameStyle",
+							"type": [
+								"boolean",
+								"null"
+							]
+						},
+						{
+							"name": "Title",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "FirstName",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "MiddleName",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "LastName",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "Suffix",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "EmailPromotion",
+							"type": [
+								"long",
+								"null"
+							]
+						},
+						{
+							"name": "AdditionalContactInfo",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "Demographics",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "rowguid",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "ModifiedDate",
+							"type": [
+								"string",
+								"null"
+							]
+						}
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_avro_parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "venkat-container-dev"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_cont_sql_personbusinessentity')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "Person",
+					"table": "BusinessEntity"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_csv_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_json_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "BusinessEntityID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PersonType",
+						"type": "varchar"
+					},
+					{
+						"name": "NameStyle",
+						"type": "bit"
+					},
+					{
+						"name": "Title",
+						"type": "varchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "MiddleName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					},
+					{
+						"name": "Suffix",
+						"type": "varchar"
+					},
+					{
+						"name": "EmailPromotion",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AdditionalContactInfo",
+						"type": "varchar"
+					},
+					{
+						"name": "Demographics",
+						"type": "varchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "Person",
+					"table": "Person"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_person_person')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "BusinessEntityID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PersonType",
+						"type": "varchar"
+					},
+					{
+						"name": "NameStyle",
+						"type": "bit"
+					},
+					{
+						"name": "Title",
+						"type": "varchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "MiddleName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					},
+					{
+						"name": "Suffix",
+						"type": "varchar"
+					},
+					{
+						"name": "EmailPromotion",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AdditionalContactInfo",
+						"type": "varchar"
+					},
+					{
+						"name": "Demographics",
+						"type": "varchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "Person",
+					"table": "Person"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_sql_Json_employee')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "EmployeeId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LastName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Email",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AddressLine1",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AddressLine2",
+						"type": "nvarchar"
+					},
+					{
+						"name": "City",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Pincode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CreatedOn",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "ModifiedOn",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "CreatedBy",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Employee"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_ds_sql_cont')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"BusinessEntityID": {
+							"type": "integer"
+						},
+						"PersonType": {
+							"type": "string"
+						},
+						"NameStyle": {
+							"type": "boolean"
+						},
+						"Title": {
+							"type": "string"
+						},
+						"FirstName": {
+							"type": "string"
+						},
+						"MiddleName": {
+							"type": "string"
+						},
+						"LastName": {
+							"type": "string"
+						},
+						"Suffix": {
+							"type": "null"
+						},
+						"EmailPromotion": {
+							"type": "integer"
+						},
+						"AdditionalContactInfo": {
+							"type": "null"
+						},
+						"Demographics": {
+							"type": "string"
+						},
+						"rowguid": {
+							"type": "string"
+						},
+						"ModifiedDate": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_getmetadata_copy')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"g": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"table": {
+						"value": "@dataset().g",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/snk_purchase')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"y": {
+						"type": "string"
+					},
+					"Z": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().y",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().Z",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_avro_parquet_businessentity')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Avro",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Person.BusinessEntity.avro",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {
+					"type": "record",
+					"name": "HybridDelivery.ClientLibraryJob",
+					"fields": [
+						{
+							"name": "BusinessEntityID",
+							"type": [
+								"int",
+								"null"
+							]
+						},
+						{
+							"name": "rowguid",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "ModifiedDate",
+							"type": [
+								"string",
+								"null"
+							]
+						}
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_avro_parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Avro",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Person.Person.avro",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {
+					"type": "record",
+					"name": "HybridDelivery.ClientLibraryJob",
+					"fields": [
+						{
+							"name": "BusinessEntityID",
+							"type": [
+								"long",
+								"null"
+							]
+						},
+						{
+							"name": "PersonType",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "NameStyle",
+							"type": [
+								"boolean",
+								"null"
+							]
+						},
+						{
+							"name": "Title",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "FirstName",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "MiddleName",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "LastName",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "Suffix",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "EmailPromotion",
+							"type": [
+								"long",
+								"null"
+							]
+						},
+						{
+							"name": "AdditionalContactInfo",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "Demographics",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "rowguid",
+							"type": [
+								"string",
+								"null"
+							]
+						},
+						{
+							"name": "ModifiedDate",
+							"type": [
+								"string",
+								"null"
+							]
+						}
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_cont_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Person.BusinessEntity.csv",
+						"folderPath": "data",
+						"fileSystem": "venkat-container-dev"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "BusinessEntityID",
+						"type": "String"
+					},
+					{
+						"name": "rowguid",
+						"type": "String"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_csv_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "BusinessEntityID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PersonType",
+						"type": "varchar"
+					},
+					{
+						"name": "NameStyle",
+						"type": "bit"
+					},
+					{
+						"name": "Title",
+						"type": "varchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "MiddleName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					},
+					{
+						"name": "Suffix",
+						"type": "varchar"
+					},
+					{
+						"name": "EmailPromotion",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AdditionalContactInfo",
+						"type": "varchar"
+					},
+					{
+						"name": "Demographics",
+						"type": "varchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "Person",
+					"table": "Person"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_json_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Person.Person.json",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"BusinessEntityID": {
+							"type": "integer"
+						},
+						"PersonType": {
+							"type": "string"
+						},
+						"NameStyle": {
+							"type": "boolean"
+						},
+						"Title": {
+							"type": "string"
+						},
+						"FirstName": {
+							"type": "string"
+						},
+						"MiddleName": {
+							"type": "string"
+						},
+						"LastName": {
+							"type": "string"
+						},
+						"Suffix": {
+							"type": "null"
+						},
+						"EmailPromotion": {
+							"type": "integer"
+						},
+						"AdditionalContactInfo": {
+							"type": "null"
+						},
+						"Demographics": {
+							"type": "string"
+						},
+						"rowguid": {
+							"type": "string"
+						},
+						"ModifiedDate": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_person_person')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Person.Person.csv",
+						"folderPath": "data",
+						"fileSystem": "venkat-container-dev"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "BusinessEntityID",
+						"type": "String"
+					},
+					{
+						"name": "PersonType",
+						"type": "String"
+					},
+					{
+						"name": "NameStyle",
+						"type": "String"
+					},
+					{
+						"name": "Title",
+						"type": "String"
+					},
+					{
+						"name": "FirstName",
+						"type": "String"
+					},
+					{
+						"name": "MiddleName",
+						"type": "String"
+					},
+					{
+						"name": "LastName",
+						"type": "String"
+					},
+					{
+						"name": "Suffix",
+						"type": "String"
+					},
+					{
+						"name": "EmailPromotion",
+						"type": "String"
+					},
+					{
+						"name": "AdditionalContactInfo",
+						"type": "String"
+					},
+					{
+						"name": "Demographics",
+						"type": "String"
+					},
+					{
+						"name": "rowguid",
+						"type": "String"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_sql_cont')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "CreditCardID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CardType",
+						"type": "varchar"
+					},
+					{
+						"name": "CardNumber",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "ExpMonth",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ExpYear",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "Sales",
+					"table": "CreditCard"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_sql_cont_businessentity')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "BusinessEntityID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "rowguid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "Person",
+					"table": "BusinessEntity"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_ds_sql_employee')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "employees.json",
+						"folderPath": "Nested Json",
+						"fileSystem": "venkat-container-dev"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"employeeId": {
+							"type": "string"
+						},
+						"name": {
+							"type": "object",
+							"properties": {
+								"first": {
+									"type": "string"
+								},
+								"last": {
+									"type": "string"
+								}
+							}
+						},
+						"contact": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string"
+								},
+								"phones": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"number": {
+												"type": "string"
+											}
+										}
+									}
+								},
+								"address": {
+									"type": "object",
+									"properties": {
+										"line1": {
+											"type": "string"
+										},
+										"line2": {
+											"type": "string"
+										},
+										"city": {
+											"type": "string"
+										},
+										"pincode": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						},
+						"skills": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"projects": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"projectId": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									},
+									"role": {
+										"type": "string"
+									},
+									"technologies": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"tasks": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"taskId": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"status": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						},
+						"audit": {
+							"type": "object",
+							"properties": {
+								"createdOn": {
+									"type": "string"
+								},
+								"modifiedOn": {
+									"type": "string"
+								},
+								"createdBy": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_getmetadata')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"x": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().x",
+							"type": "Expression"
+						},
+						"folderPath": "multiple files",
+						"fileSystem": "venkat-container-dev"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "AddressTypeID|Name|rowguid|ModifiedDate",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		}
+	]
+}

@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "venkatdata132"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"SqlServer1_password": {
+			"value": ""
+		},
+		"link_AzureSql_password": {
+			"value": ""
+		},
+		"link_adls_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://venkat123acc.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://venkatkeyvault.vault.azure.net/"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"value": "DESKTOP-DOVR8TG"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"value": "AdventureWorks2019"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"value": "venkat"
+		},
+		"link_AzureSql_properties_typeProperties_server": {
+			"value": "venkatserver.database.windows.net"
+		},
+		"link_AzureSql_properties_typeProperties_database": {
+			"value": "venkat_db"
+		},
+		"link_AzureSql_properties_typeProperties_userName": {
+			"value": "venkatserver"
+		},
+		"link_adls_properties_typeProperties_url": {
+			"value": "https://venkatdev.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
